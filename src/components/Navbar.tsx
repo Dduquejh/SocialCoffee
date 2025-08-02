@@ -16,24 +16,24 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-4 items-center w-auto">
-            <a href="#" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+            <a href="/home" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
               <FaHome className="transition-transform duration-200 group-hover:scale-110"/>
               Inicio
             </a>
 
-            <a href="#" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+            <a href="/store" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
               <FaStore className="transition-transform duration-200 group-hover:scale-110" />
               Tienda
             </a>
-            <a href="#" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+            <a href="/forum" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
               <FaComments  className="transition-transform duration-200 group-hover:scale-110"/>
               Foro
             </a>
-            <a href="#" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+            <a href="/shopping-cart" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
               <FaShoppingCart className="transition-transform duration-200 group-hover:scale-110" />
               Carrito
             </a>
-            <a href="#" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+            <a href="/profile" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
               <FaUserAlt className="transition-transform duration-200 group-hover:scale-110"/>
               Perfil
             </a>
@@ -55,10 +55,27 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden px-4 pt-2 pb-3 space-y-1">
-          <a href="#" className="block text-gray-900 hover:text-blue-600">Inicio</a>
-          <a href="#" className="block text-gray-900 hover:text-blue-600">Tienda</a>
-          <a href="#" className="block text-gray-900 hover:text-blue-600">Foro</a>
-          <a href="#" className="block text-gray-900 hover:text-blue-600"><FaShoppingCart />Carrito</a>
+          <a href="/home" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+              <FaHome className="transition-transform duration-200 group-hover:scale-110"/>
+              Inicio
+            </a>
+
+            <a href="/store" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+              <FaStore className="transition-transform duration-200 group-hover:scale-110" />
+              Tienda
+            </a>
+            <a href="/forum" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+              <FaComments  className="transition-transform duration-200 group-hover:scale-110"/>
+              Foro
+            </a>
+            <a href="/shopping-cart" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+              <FaShoppingCart className="transition-transform duration-200 group-hover:scale-110" />
+              Carrito
+            </a>
+            <a href="/profile" className="flex items-center gap-2 text-gray-900 hover:text-blue-600">
+              <FaUserAlt className="transition-transform duration-200 group-hover:scale-110"/>
+              Perfil
+            </a>
         </div>
       )}
     </nav>
