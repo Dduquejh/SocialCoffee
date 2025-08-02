@@ -1,0 +1,24 @@
+# Ignorar dependencias
+node_modules/
+
+# Ignorar carpetas de compilación
+build/
+dist/
+
+# Ignorar archivos de configuración
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Ignorar archivos de entorno
+.env
+.env.local
+.env.production
+.env.development
+
+# Ignorar archivos generados
+coverage/
+*.log
+
+# Ignorar archivos específicos si los tienes
+public/
