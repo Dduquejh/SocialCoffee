@@ -10,18 +10,20 @@ import ShoppingCart from './pages/ShoppingCart';
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/store/product/:id" element={<ProductDetail />} />
-        <Route path="/forum" element={<Forum />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/shopping-cart" element={<ShoppingCart />} />
-        <Route path="*" element={<div>Page Not Found</div>} />
-      </Routes>
-    </Router>
+    <div className="bg-gray-50 min-h-screen">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/store/product/:id" element={<ProductDetail />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/shopping-cart" element={<ShoppingCart />} />
+          <Route path="*" element={<div>Page Not Found</div>} />
+        </Routes>
+      </Router>
+    </div>
   )
 }
 
