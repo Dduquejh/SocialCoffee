@@ -6,6 +6,7 @@ import ProductDetail from './pages/ProductDetail';
 import Forum from './pages/Forum';
 import Profile from './pages/Profile';
 import ShoppingCart from './pages/ShoppingCart';
+import NotFound from './pages/NotFound';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
           <Route path="/forum" element={<Forum />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
-          <Route path="*" element={<div>Page Not Found</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </div>

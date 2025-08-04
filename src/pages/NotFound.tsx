@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import PastelButton from "../components/Button";
 
-export default function ComingSoon() {
+export default function NotFound() {
     const navigate = useNavigate();
 
     return (
@@ -18,10 +18,10 @@ export default function ComingSoon() {
             className="w-32 h-32 md:w-48 md:h-48 mb-6 animate-bounce-slow"
             />
             <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
-            ¡Muy pronto!
+            Página no encontrada
             </h1>
             <p className="text-lg md:text-xl font-sans font-medium max-w-xl text-gray-700 mb-6">
-            Estamos preparando algo especial para los amantes del café. Esta sección estará disponible próximamente.
+            Ups... parece que esta ruta no existe. Tal vez te gustaría volver a disfrutar de un buen café en la página principal.
             </p>
             <PastelButton onClick={() => navigate("/")} className="hover:animate-pulse hover:scale-105 transition-transform duration-300">
             Volver al inicio
