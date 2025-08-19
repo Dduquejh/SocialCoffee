@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import './App.css'
 import Home from './pages/Home';
@@ -36,7 +37,7 @@ console.log("Redirect URI:", import.meta.env.VITE_COGNITO_REDIRECT_URI);
         <Routes>
           <Route path="/auth-callback" element={<AuthCallback />} />
           <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/store" element={<Store />} />
           <Route path="/store/product/:id" element={<ProductDetail />} />
           <Route path="/forum" element={<Forum />} />
