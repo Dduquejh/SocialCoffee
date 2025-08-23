@@ -5,7 +5,7 @@ import './App.css'
 import Home from './pages/Home';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
-import Forum from './pages/Forum';
+import Blog from './pages/Blog';
 import Profile from './pages/Profile';
 import ShoppingCart from './pages/ShoppingCart';
 import NotFound from './pages/NotFound';
@@ -14,22 +14,29 @@ import AuthCallback from './pages/AuthCallback';
 function App() {
 
   useEffect(() => {
-    const token = localStorage.getItem("id_token");
+  const isLocalhost = window.location.hostname === "localhost";
 
-    if (!token) {
-      const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
-      const domain = import.meta.env.VITE_COGNITO_DOMAIN;
-      const redirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
+  if (isLocalhost) {
+    console.log("Modo desarrollo: autenticación deshabilitada");
+    return;
+  }
 
-      console.log("Client ID:", import.meta.env.VITE_COGNITO_CLIENT_ID);
-console.log("Domain:", import.meta.env.VITE_COGNITO_DOMAIN);
-console.log("Redirect URI:", import.meta.env.VITE_COGNITO_REDIRECT_URI);
+  const token = localStorage.getItem("id_token");
 
+  if (!token) {
+    const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
+    const domain = import.meta.env.VITE_COGNITO_DOMAIN;
+    const redirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
 
-      const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
-      window.location.href = loginUrl;
-    }
-  }, []);
+    console.log("Client ID:", clientId);
+    console.log("Domain:", domain);
+    console.log("Redirect URI:", redirectUri);
+
+    const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+    window.location.href = loginUrl;
+  }
+}, []);
+
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -40,7 +47,7 @@ console.log("Redirect URI:", import.meta.env.VITE_COGNITO_REDIRECT_URI);
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/store" element={<Store />} />
           <Route path="/store/product/:id" element={<ProductDetail />} />
-          <Route path="/forum" element={<Forum />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
           <Route path="*" element={<NotFound />} />

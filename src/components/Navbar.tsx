@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   const navItems = [
     { href: '/home', label: 'Inicio', icon: <FaHome /> },
     { href: '/store', label: 'Tienda', icon: <FaStore /> },
-    { href: '/forum', label: 'Foro', icon: <FaComments /> },
+    { href: '/blog', label: 'Blog', icon: <FaComments /> },
     { href: '/shopping-cart', label: 'Carrito', icon: <FaShoppingCart /> },
     { href: '/profile', label: 'Perfil', icon: <FaUserAlt /> },
   ];

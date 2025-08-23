@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import PastelButton from "../components/Button";
 
-export default function ComingSoon() {
+export default function Blog() {
     const navigate = useNavigate();
 
     return (
