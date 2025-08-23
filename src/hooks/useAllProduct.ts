@@ -72,7 +72,6 @@ export const useProducts = () => {
           response = await client.getEntries({
             content_type: contentType,
             include: 10,
-            limit: 10,
           });
           console.log(`✅ Éxito con content_type: "${contentType}"`, response);
           break;
