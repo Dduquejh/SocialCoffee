@@ -1,12 +1,13 @@
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../hooks/useAllProduct";
+import { useStoreInfo } from "../hooks/useStoreInfo";
 import { ProductGrid } from "../components/ProductCard";
-import type { Product } from "../types/Product"; // Ajusta la ruta según tu estructura
-
+import type { Product } from "../types/Product";
 export default function Store() {
     const navigate = useNavigate();
     const { products, loading, error, refetch } = useProducts();
+    const { storeInfo } = useStoreInfo();
 
     const handleViewDetails = (product: Product) => {
         // Navegar a la página de detalles del producto
@@ -32,11 +33,10 @@ export default function Store() {
             {/* Header de la tienda */}
             <section className="text-center px-4 py-8 animate-fade-in-up">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
-                Nuestra Tienda de Café
+                {storeInfo?.title}
                 </h1>
                 <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-                Descubre nuestra selección premium de cafés artesanales, 
-                cuidadosamente seleccionados para los verdaderos amantes del café.
+                {storeInfo?.details}
                 </p>
                 
                 {/* Botón de refrescar si hay error */}
@@ -64,17 +64,16 @@ export default function Store() {
                 <section className="text-center px-4 py-8">
                 <div className="bg-[#EED6D3] bg-opacity-90 rounded-xl p-6 max-w-2xl mx-auto">
                     <h3 className="text-xl font-serif font-bold mb-2">
-                    ¿Necesitas ayuda eligiendo?
+                    {storeInfo?.footerTitle}
                     </h3>
                     <p className="text-gray-700 mb-4">
-                    Nuestros expertos en café están aquí para ayudarte a encontrar 
-                    el café perfecto para tu paladar.
+                    {storeInfo?.footerDescription}
                     </p>
                     <button
-                    onClick={() => navigate('/contact')}
+                    onClick={() => alert('Se debe de mirar como implementar esto')}
                     className="bg-[#F4A698] hover:bg-[#F4A698]/80 text-gray-800 font-semibold py-2 px-6 rounded-lg transition-colors duration-300"
                     >
-                    Contáctanos
+                    {storeInfo?.footerButtonText}
                     </button>
                 </div>
                 </section>
