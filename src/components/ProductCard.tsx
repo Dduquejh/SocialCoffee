@@ -1,4 +1,5 @@
-import type { Product } from '../types/Product'; // Ajusta la ruta según tu estructura
+import type { Product } from '../types/Product';
+import { useNavigate } from 'react-router-dom';
 import PastelButton from './Button';
 
 interface ProductCardProps {
@@ -12,6 +13,8 @@ export default function ProductCard({
   onViewDetails, 
   onAddToCart 
 }: ProductCardProps) {
+  const navigate = useNavigate();
+
   // Función para obtener la URL de la primera imagen
   const getImageUrl = () => {
     if (product.productImage && product.productImage.length > 0) {
@@ -35,6 +38,7 @@ export default function ProductCard({
 
   // Manejar click en la card
   const handleCardClick = () => {
+    navigate(`/store/product/${product.productSlug}`);
     onViewDetails?.(product);
   };
 

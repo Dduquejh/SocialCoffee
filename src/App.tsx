@@ -45,7 +45,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="/store" element={<Store />} />
-          <Route path="/store/product/:id" element={<ProductDetail />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
           <Route path="*" element={<NotFound />} />
