@@ -5,7 +5,6 @@ import {
   FaHome,
   FaStore,
   FaComments,
-  FaUserAlt,
 } from 'react-icons/fa';
 
 const Navbar: React.FC = () => {
@@ -16,7 +15,6 @@ const Navbar: React.FC = () => {
     { href: '/store', label: 'Tienda', icon: <FaStore /> },
     { href: '/blog', label: 'Blog', icon: <FaComments /> },
     { href: '/shopping-cart', label: 'Carrito', icon: <FaShoppingCart /> },
-    { href: '/profile', label: 'Perfil', icon: <FaUserAlt /> },
   ];
 
   return (

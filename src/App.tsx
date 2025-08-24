@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
 import Blog from './pages/Blog';
-import Profile from './pages/Profile';
 import ShoppingCart from './pages/ShoppingCart';
 import NotFound from './pages/NotFound';
 import AuthCallback from './pages/AuthCallback';
@@ -48,7 +47,6 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/store/product/:id" element={<ProductDetail />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
