@@ -41,6 +41,7 @@ export default function ProductCard({
   // Manejar click en el botón (evitar propagación)
   const handleAddToCartClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Evita que se active el click de la card
+    alert('Esta página se implementa junto con back para hacer la validación de stock que se tenga en una base de datos');
     onAddToCart?.(product);
   };
 
