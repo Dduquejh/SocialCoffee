@@ -6,6 +6,7 @@ import {
   FaStore,
   FaComments,
 } from 'react-icons/fa';
+import { trackEvent } from '../lib/analytics';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,15 +15,17 @@ const Navbar: React.FC = () => {
   const handleCartClick = (e: React.MouseEvent) => {
     e.preventDefault();
     alert('Esta página se implementa junto con back para hacer la validación de stock que se tenga en una base de datos');
+    trackEvent("click", "button", "Ir al carrito");
     navigate('/shopping-cart');
   };
 
   const navItems = [
-    { href: '/home', label: 'Inicio', icon: <FaHome /> },
-    { href: '/store', label: 'Tienda', icon: <FaStore /> },
-    { href: '/blog', label: 'Blog', icon: <FaComments /> },
+    { href: '/home', label: 'Inicio', icon: <FaHome />, onClick: () => { trackEvent("go_to_home", "NavBar", "Ir a inicio"); navigate('/home'); }},
+    { href: '/store', label: 'Tienda', icon: <FaStore />, onClick: () => { trackEvent("go_to_store", "NavBar", "Ir a la tienda"); navigate('/store'); }},
+    { href: '/blog', label: 'Blog', icon: <FaComments />, onClick: () => { trackEvent("go_to_blog", "NavBar", "Ir al blog"); navigate('/blog'); }},
     { href: '/shopping-cart', label: 'Carrito', icon: <FaShoppingCart />, onClick: handleCartClick },
   ];
+
 
   return (
     <nav className="sticky top-0 z-50 bg-[#F5F0E6] shadow-md px-4 py-3 rounded-2xl">

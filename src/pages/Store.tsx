@@ -4,6 +4,8 @@ import { useProducts } from "../hooks/useAllProduct";
 import { useStoreInfo } from "../hooks/useStoreInfo";
 import { ProductGrid } from "../components/ProductCard";
 import type { Product } from "../types/Product";
+import { trackEvent } from "../lib/analytics";
+
 export default function Store() {
     const navigate = useNavigate();
     const { products, loading, error, refetch } = useProducts();
@@ -70,7 +72,10 @@ export default function Store() {
                     {storeInfo?.footerDescription}
                     </p>
                     <button
-                    onClick={() => alert('Se debe de mirar como implementar esto')}
+                    onClick={() => {
+                        trackEvent("go_to_contact", "StorePage", "Footer button");
+                        alert('Se debe de mirar como implementar esto');
+                    }}
                     className="bg-[#F4A698] hover:bg-[#F4A698]/80 text-gray-800 font-semibold py-2 px-6 rounded-lg transition-colors duration-300"
                     >
                     {storeInfo?.footerButtonText}

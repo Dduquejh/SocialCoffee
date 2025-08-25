@@ -1,6 +1,7 @@
 import type { Product } from '../types/Product';
 import { useNavigate } from 'react-router-dom';
 import PastelButton from './Button';
+import { trackEvent } from '../lib/analytics';
 
 interface ProductCardProps {
   product: Product;
@@ -8,10 +9,10 @@ interface ProductCardProps {
   onAddToCart?: (product: Product) => void;
 }
 
-export default function ProductCard({ 
-  product, 
-  onViewDetails, 
-  onAddToCart 
+export default function ProductCard({
+  product,
+  onViewDetails,
+  onAddToCart
 }: ProductCardProps) {
   const navigate = useNavigate();
 
@@ -38,6 +39,13 @@ export default function ProductCard({
 
   // Manejar click en la card
   const handleCardClick = () => {
+    trackEvent("view_item", "ProductCard", product.productName, {
+      item_id: product.productSlug,
+      item_name: product.productName,
+      item_category: product.productType,
+      currency: "COP",
+      price: product.productPrice,
+    });
     navigate(`/store/product/${product.productSlug}`);
     onViewDetails?.(product);
   };
@@ -45,12 +53,31 @@ export default function ProductCard({
   // Manejar click en el botón (evitar propagación)
   const handleAddToCartClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Evita que se active el click de la card
+
+    if (!product.productIsActive) {
+    trackEvent("attempt_add_to_cart", "ProductCard", product.productName, {
+      item_id: product.productSlug,
+      status: "inactive",
+    });
+
+    alert('Este producto está agotado. No se puede agregar al carrito.');
+    return; // Evita continuar con la lógica de agregar
+  }
+
+    trackEvent("add_to_cart", "ProductCard", product.productName, {
+    item_id: product.productSlug,
+    item_name: product.productName,
+    item_category: product.productType,
+    currency: "COP",
+    price: product.productPrice,
+    quantity: 1,
+  });
     alert('Esta página se implementa junto con back para hacer la validación de stock que se tenga en una base de datos');
     onAddToCart?.(product);
   };
 
   return (
-    <div 
+    <div
       className="bg-[#EED6D3] bg-opacity-90 rounded-xl overflow-hidden shadow-[#F4A698] shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 group cursor-pointer"
       onClick={handleCardClick}
     >
@@ -61,14 +88,14 @@ export default function ProductCard({
           alt={product.productName}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-        
+
         {/* Badge de estado */}
         {!product.productIsActive && (
           <div className="absolute top-2 right-2 bg-red-400 text-white px-2 py-1 rounded-full text-xs font-semibold">
             Agotado
           </div>
         )}
-        
+
         {/* Badge de tipo */}
         <div className="absolute top-2 left-2 bg-[#F4A698] bg-opacity-90 text-gray-800 px-2 py-1 rounded-full text-xs font-semibold">
           {product.productType}
@@ -105,9 +132,8 @@ export default function ProductCard({
         <div className="pt-2">
           <PastelButton
             onClick={handleAddToCartClick}
-            className={`w-full text-sm hover:animate-pulse hover:scale-105 transition-transform duration-300 ${
-              !product.productIsActive ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
+            className={`w-full text-sm hover:animate-pulse hover:scale-105 transition-transform duration-300 ${!product.productIsActive ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
 
           >
             {product.productIsActive ? 'Agregar al Carrito' : 'Agotado'}
@@ -127,9 +153,9 @@ interface ProductGridProps {
   error?: string | null;
 }
 
-export function ProductGrid({ 
-  products, 
-  onViewDetails, 
+export function ProductGrid({
+  products,
+  onViewDetails,
   onAddToCart,
   loading = false,
   error = null

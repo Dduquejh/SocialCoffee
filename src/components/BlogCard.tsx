@@ -3,6 +3,7 @@ import PastelButton from './Button';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useBlogInfo } from '../hooks/useBlogInfo';
+import { trackEvent } from '../lib/analytics';
 
 export interface BlogContent {
     title: string;
@@ -44,11 +45,18 @@ export default function BlogCard({
 
     // Manejar click para expandir/contraer
     const handleToggleExpand = () => {
+        trackEvent("toggle_expand", "BlogCard", blog.title, {
+            item_id: blog.slug,
+            status: isExpanded ? "collapsed" : "expanded",
+        });
         setIsExpanded(!isExpanded);
     };
 
     // Manejar click en "Leer más"
     const handleReadMore = (e: React.MouseEvent) => {
+        trackEvent("read_more", "BlogCard", blog.title, {
+            item_id: blog.slug,
+        });
         e.stopPropagation();
         onReadMore?.(blog);
     };

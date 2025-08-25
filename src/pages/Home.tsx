@@ -2,6 +2,7 @@ import PastelButton from "../components/Button";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useHomePage } from "../hooks/useHomePageContent";
+import { trackEvent } from "../lib/analytics";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -133,13 +134,19 @@ export default function Home() {
                     </p>
                     <div className="flex gap-4">
                         <PastelButton 
-                            onClick={() => navigate("/store")} 
+                            onClick={() => {
+                                trackEvent("go_to_store", "HomePage", "Visitar la tienda");
+                                navigate("/store");
+                            }} 
                             className="hover:animate-pulse hover:scale-105 transition-transform duration-300"
                         >
                             {homePage?.textButton1}
                         </PastelButton>
                         <PastelButton 
-                            onClick={() => navigate("/forums")} 
+                            onClick={() => {
+                                trackEvent("go_to_blog", "HomePage", "Visitar blog");
+                                navigate("/blog");
+                            }} 
                             className="hover:animate-pulse hover:scale-105 transition-transform duration-300"
                         >
                             {homePage?.textButton2}

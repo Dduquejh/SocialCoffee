@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import PastelButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useProductBySlug } from "../hooks/useAllProduct";
+import { trackEvent } from "../lib/analytics";
 
 export default function ProductDetail() {
     const navigate = useNavigate();
@@ -26,7 +27,10 @@ export default function ProductDetail() {
                             El producto que buscas no está disponible.
                         </p>
                         <PastelButton
-                            onClick={() => navigate('/store')}
+                            onClick={() => {
+                                trackEvent("go_to_store", "ProductDetail", "Volver a la tienda");
+                                navigate('/store');
+                            }}
                             className="hover:animate-pulse hover:scale-105 transition-transform duration-300"
                         >
                             Volver a la tienda
@@ -97,7 +101,10 @@ export default function ProductDetail() {
                 <div className="max-w-7xl mx-auto px-4 py-4">
                     <nav className="text-sm text-gray-600">
                         <button
-                            onClick={() => navigate('/store')}
+                            onClick={() => {
+                                trackEvent("go_to_store", "ProductDetail", "Volver a la tienda");
+                                navigate('/store');
+                                }}
                             className="hover:text-[#8B4513] transition-colors"
                         >
                             Tienda
@@ -193,7 +200,10 @@ export default function ProductDetail() {
                                     </label>
                                     <div className="flex items-center gap-3">
                                         <button
-                                            onClick={() => handleQuantityChange(-1)}
+                                            onClick={() => {
+                                                trackEvent("decrement_quantity", "ProductDetail", "Decrementar cantidad");
+                                                handleQuantityChange(-1);
+                                            }}
                                             className="w-10 h-10 bg-[#EED6D3] hover:bg-[#F4A698] rounded-full flex items-center justify-center font-bold text-gray-800 transition-colors"
                                             disabled={quantity <= 1}
                                         >
@@ -203,7 +213,10 @@ export default function ProductDetail() {
                                             {quantity}
                                         </span>
                                         <button
-                                            onClick={() => handleQuantityChange(1)}
+                                            onClick={() => {
+                                                trackEvent("increment_quantity", "ProductDetail", "Incrementar cantidad");
+                                                handleQuantityChange(1);
+                                            }}
                                             className="w-10 h-10 bg-[#EED6D3] hover:bg-[#F4A698] rounded-full flex items-center justify-center font-bold text-gray-800 transition-colors"
                                             disabled={quantity >= 10}
                                         >
@@ -215,7 +228,10 @@ export default function ProductDetail() {
                                 {/* Botones de acción */}
                                 <div className="flex gap-4">
                                     <PastelButton
-                                        onClick={handleAddToCart}
+                                        onClick={() => {
+                                            trackEvent("add_to_cart", "ProductDetail", "Agregar al carrito");
+                                            handleAddToCart();
+                                        }}
                                         className={`flex-1 text-lg py-3 hover:animate-pulse hover:scale-105 transition-transform duration-300 ${!product.productIsActive ? 'opacity-50 cursor-not-allowed' : ''
                                             }`}
                                     >
@@ -260,7 +276,10 @@ export default function ProductDetail() {
                     {/* Botón volver */}
                     <div className="mt-12 text-center">
                         <PastelButton
-                            onClick={() => navigate('/store')}
+                            onClick={() =>{
+                                trackEvent("go_to_store", "ProductDetail", "Volver a la tienda");
+                                navigate('/store');
+                            }}
                             className="hover:animate-pulse hover:scale-105 transition-transform duration-300"
                         >
                             ← Volver a la tienda
