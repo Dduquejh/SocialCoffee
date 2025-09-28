@@ -5,6 +5,7 @@ import PastelButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useProductBySlug } from "../hooks/useAllProduct";
 import { trackEvent } from "../lib/analytics";
+import CommentSection from "../components/CommentSection";
 
 export default function ProductDetail() {
     const navigate = useNavigate();
@@ -104,7 +105,7 @@ export default function ProductDetail() {
                             onClick={() => {
                                 trackEvent("go_to_store", "ProductDetail", "Volver a la tienda");
                                 navigate('/store');
-                                }}
+                            }}
                             className="hover:text-[#8B4513] transition-colors"
                         >
                             Tienda
@@ -137,8 +138,8 @@ export default function ProductDetail() {
                                             key={index}
                                             onClick={() => setSelectedImageIndex(index)}
                                             className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${selectedImageIndex === index
-                                                    ? 'border-[#F4A698]'
-                                                    : 'border-transparent hover:border-[#EED6D3]'
+                                                ? 'border-[#F4A698]'
+                                                : 'border-transparent hover:border-[#EED6D3]'
                                                 }`}
                                         >
                                             <img
@@ -272,11 +273,17 @@ export default function ProductDetail() {
                             </div>
                         </div>
                     </div>
+                    <div className="mt-16">
+                        {/* Sección de comentarios */}
+                        {product?.productSlug && (
+                            <CommentSection productSlug={product.productSlug} />
+                        )}
+                    </div>
 
                     {/* Botón volver */}
                     <div className="mt-12 text-center">
                         <PastelButton
-                            onClick={() =>{
+                            onClick={() => {
                                 trackEvent("go_to_store", "ProductDetail", "Volver a la tienda");
                                 navigate('/store');
                             }}

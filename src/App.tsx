@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import './App.css'
+import './App.css';
 import Home from './pages/Home';
 import Store from './pages/Store';
 import ProductDetail from './pages/ProductDetail';
@@ -14,21 +13,23 @@ import { initAnalytics, trackPageView } from './lib/analytics';
 function App() {
   useEffect(() => {
     const isLocalhost = window.location.hostname === "localhost";
+    const token = localStorage.getItem("id_token");
 
     if (isLocalhost) {
       console.log("Modo desarrollo: autenticación deshabilitada");
-      return;
-    }
+      if (!token) {
+        localStorage.setItem("id_token", "fake-local-token");
+        console.log("Token simulado guardado en localStorage");
+      }
+    } else {
+      if (!token) {
+        const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
+        const domain = import.meta.env.VITE_COGNITO_DOMAIN;
+        const redirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
 
-    const token = localStorage.getItem("id_token");
-
-    if (!token) {
-      const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
-      const domain = import.meta.env.VITE_COGNITO_DOMAIN;
-      const redirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
-
-      const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
-      window.location.href = loginUrl;
+        const loginUrl = `${domain}/login?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+        window.location.href = loginUrl;
+      }
     }
 
     initAnalytics();
@@ -56,7 +57,6 @@ function App() {
 
 export default App;
 
-
 const AnalyticsTracker = () => {
   const location = useLocation();
 
@@ -65,4 +65,4 @@ const AnalyticsTracker = () => {
   }, [location]);
 
   return null;
-}
+};
