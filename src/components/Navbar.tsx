@@ -14,7 +14,6 @@ const Navbar: React.FC = () => {
 
   const handleCartClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    alert('Esta página se implementa junto con back para hacer la validación de stock que se tenga en una base de datos');
     trackEvent("click", "button", "Ir al carrito");
     navigate('/shopping-cart');
   };

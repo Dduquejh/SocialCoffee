@@ -6,6 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useProductBySlug } from "../hooks/useAllProduct";
 import { trackEvent } from "../lib/analytics";
 import CommentSection from "../components/CommentSection";
+import { useCart } from '../hooks/useCart';
+import { useValidateStock } from '../hooks/useValidateStocks';
+
+
 
 export default function ProductDetail() {
     const navigate = useNavigate();
@@ -13,6 +17,8 @@ export default function ProductDetail() {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const { product, loading, error } = useProductBySlug(slug ?? "");
+    const { addItem } = useCart();
+
 
     // Si no hay producto (por ejemplo, acceso directo a la URL), redirigir o mostrar error
     if (!product || error) {
@@ -77,11 +83,33 @@ export default function ProductDetail() {
         }).format(price);
     };
 
-    const handleAddToCart = () => {
-        if (product.productIsActive) {
-            alert('Esta funcionalidad se implementa junto con back para hacer la validación de stock que se tenga en una base de datos');
-            // Aquí agregarías la lógica real del carrito
-        }
+    const handleAddToCart = async () => {
+        if (!product.productIsActive) {
+    alert('Este producto está agotado.');
+    return;
+  }
+
+  try {
+    await useValidateStock(product.productSlug, quantity);
+
+    trackEvent("add_to_cart", "ProductDetail", product.productName, {
+      item_id: product.productSlug,
+      item_name: product.productName,
+      item_category: product.productType,
+      currency: "COP",
+      price: product.productPrice,
+      quantity,
+    });
+
+    addItem(product, quantity);
+    alert(`Agregado ${quantity} al carrito`);
+  } catch (err: any) {
+    trackEvent("stock_validation_failed", "ProductDetail", product.productName, {
+      item_id: product.productSlug,
+      error: err.message,
+    });
+    alert(`No se pudo agregar: ${err.message}`);
+  }
     };
 
     const handleQuantityChange = (change: number) => {

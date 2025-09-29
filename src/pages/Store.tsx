@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import { useProducts } from "../hooks/useAllProduct";
 import { useStoreInfo } from "../hooks/useStoreInfo";
-import { ProductGrid } from "../components/ProductCard";
+import { ProductGrid } from "../components/ProductGrid";
 import type { Product } from "../types/Product";
 import { trackEvent } from "../lib/analytics";
 
@@ -15,12 +15,7 @@ export default function Store() {
         // Navegar a la página de detalles del producto
         navigate(`/product/${product.productSlug}`);
     };
-    const handleAddToCart = (product: Product) => {
-        // Lógica para agregar al carrito
-        console.log('Agregando al carrito:', product);
-        // Aquí puedes integrar con tu estado de carrito o context
-        // Por ejemplo: addToCart(product);
-    };
+
 
     const handleRefresh = () => {
         refetch();
@@ -56,7 +51,6 @@ export default function Store() {
             <ProductGrid
                 products={products}
                 onViewDetails={handleViewDetails}
-                onAddToCart={handleAddToCart}
                 loading={loading}
                 error={error}
             />

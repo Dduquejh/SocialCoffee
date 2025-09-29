@@ -8,7 +8,9 @@ import Blog from './pages/Blog';
 import ShoppingCart from './pages/ShoppingCart';
 import NotFound from './pages/NotFound';
 import AuthCallback from './pages/AuthCallback';
+import Admin from './pages/Admin';
 import { initAnalytics, trackPageView } from './lib/analytics';
+import RequireAdmin from './components/RequiereAdmin';
 
 function App() {
   useEffect(() => {
@@ -48,6 +50,14 @@ function App() {
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
+          <Route
+            path="/admin"
+            element={
+              <RequireAdmin>
+                <Admin />
+              </RequireAdmin>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
