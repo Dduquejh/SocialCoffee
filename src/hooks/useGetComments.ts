@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 
 interface Comment {
     id?: string;
-    user_name: string;
+    email: string;
     content: string;
     created_at: string;
 }

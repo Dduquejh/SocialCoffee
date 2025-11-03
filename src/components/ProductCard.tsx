@@ -85,7 +85,7 @@ export default function ProductCard({
 
   return (
     <div
-      className="bg-[#EED6D3] bg-opacity-90 rounded-xl overflow-hidden shadow-[#F4A698] shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 group cursor-pointer"
+      className="bg-[#EED6D3] bg-opacity-90 rounded-xl overflow-hidden shadow-[#F4A698] shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 group cursor-pointer flex flex-col h-full"
       onClick={handleCardClick}
     >
       {/* 🖼️ Imagen */}
@@ -106,11 +106,11 @@ export default function ProductCard({
       </div>
 
       {/* 📦 Contenido */}
-      <div className="p-4 space-y-3">
+      <div className="p-4 space-y-3 flex flex-col flex-1 line-clamp-2">
         <h3 className="text-lg font-serif font-bold text-gray-800 line-clamp-2 group-hover:text-[#8B4513] transition-colors">
           {product.productName}
         </h3>
-        <p className="text-sm font-sans text-gray-700 line-clamp-2">
+        <p className="text-sm font-sans text-gray-700 line-clamp-3">
           {product.productDescription}
         </p>
         <div className="flex justify-between items-center text-xs text-gray-600">
@@ -128,7 +128,7 @@ export default function ProductCard({
         <div className="pt-2">
           <PastelButton
             onClick={handleAddToCartClick}
-            className={`w-full text-sm hover:animate-pulse hover:scale-105 transition-transform duration-300 ${
+            className={`w-full text-sm hover:animate-pulse hover:scale-105 transition-transform duration-300 mt-auto ${
               !product.productIsActive ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

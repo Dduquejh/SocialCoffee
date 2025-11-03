@@ -11,6 +11,7 @@
     "deploy": "npm run build && aws s3 sync dist/ s3://socialcoffee-dduquejh --delete && aws cloudfront create-invalidation --distribution-id E1JVZ8YISVCB1E --paths \"/*\""
   },
   "dependencies": {
+    "@n8n/chat": "^0.63.0",
     "@tailwindcss/vite": "^4.1.11",
     "aws-amplify": "^6.15.4",
     "contentful": "^11.7.15",

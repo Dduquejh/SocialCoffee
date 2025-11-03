@@ -112,8 +112,10 @@ export const useProductBySlug = (slug: string) => {
           content_type: "productModelSocialCoffee",
           'fields.productSlug': slug,
           include: 10,
-          limit: 1,
+          limit: 10,
         });
+
+        console.log('🔍 Respuesta de Contentful para slug', slug, ':', response);
 
 
         if (response && response.items.length > 0) {

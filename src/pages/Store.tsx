@@ -5,11 +5,17 @@ import { useStoreInfo } from "../hooks/useStoreInfo";
 import { ProductGrid } from "../components/ProductGrid";
 import type { Product } from "../types/Product";
 import { trackEvent } from "../lib/analytics";
+import { useRecommendations } from "../hooks/useRecommendations";
+import { getUserEmailFromToken } from "../lib/auth";
 
 export default function Store() {
     const navigate = useNavigate();
     const { products, loading, error, refetch } = useProducts();
     const { storeInfo } = useStoreInfo();
+
+    const email = getUserEmailFromToken();
+    const { products: similarProducts } = useRecommendations(email, "similar");
+    const { products: topProducts } = useRecommendations(email, "top");
 
     const handleViewDetails = (product: Product) => {
         // Navegar a la página de detalles del producto
@@ -54,6 +60,22 @@ export default function Store() {
                 loading={loading}
                 error={error}
             />
+
+            {/* Sección de productos similares en base a compras*/}
+            {similarProducts.length > 0 && (
+                <section className="px-4 py-10 bg-[#EED6D3]/40 rounded-xl max-w-6xl mx-auto my-8 shadow-md">
+                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 font-serif">Recomendados en base a tus compras</h2>
+                <ProductGrid products={similarProducts} onViewDetails={handleViewDetails} />
+                </section>
+            )}
+
+            {/* Sección de productos destacados */}
+            {topProducts.length > 0 && (
+                <section className="px-4 py-10 bg-[#EED6D3]/40 rounded-xl max-w-6xl mx-auto my-8 shadow-md">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center text-gray-800 font-serif">Productos más vendidos</h2>
+                    <ProductGrid products={topProducts} onViewDetails={handleViewDetails} />
+                </section>
+            )}
 
             {/* Footer o información adicional */}
             {!loading && !error && products.length > 0 && (

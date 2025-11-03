@@ -7,6 +7,8 @@ interface Purchase {
     user_id: number;
     date: string;
     total: number;
+    ordered: boolean;
+    shipped: boolean;
     delivered: boolean;
 }
 
@@ -25,9 +27,10 @@ export function useAdminPurchases() {
     return { purchases, loading, error };
 }
 
-export async function updateDeliveryStatus(purchase_id: number, delivered: boolean) {
+// Nueva función: marcar como enviado
+export async function markAsShipped(purchase_id: number) {
     return apiFetch<{ status: string }>(`/admin/purchases/${purchase_id}`, {
         method: 'POST',
-        body: JSON.stringify({ delivered }),
+        body: JSON.stringify({ shipped: true }),
     });
 }

@@ -7,4 +7,6 @@ export interface Product {
   productSlug: string;
   productType: string;
   productSize: string;
+  productStock?: number;
+  productProcess?: string;
 }

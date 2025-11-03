@@ -58,10 +58,10 @@ export default function CommentSection({ productSlug }: Props) {
                 ) : (
                     comments.map(comment => (
                         <div
-                            key={comment.id || `${comment.user_name}-${comment.created_at}`}
+                            key={comment.id || `${comment.email}-${comment.created_at}`}
                             className="bg-[#F5F0E6] p-4 rounded-lg border border-[#F4A698] shadow-sm"
                         >
-                            <p className="text-sm text-gray-700 mb-1 font-medium">{comment.user_name}</p>
+                            <p className="text-sm text-gray-700 mb-1 font-medium">{comment.email}</p>
                             <p className="text-gray-800">{comment.content}</p>
                             <p className="text-xs text-gray-500 text-right mt-2">
                                 {new Date(comment.created_at).toLocaleString()}

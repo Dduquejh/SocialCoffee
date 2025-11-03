@@ -2,3 +2,28 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+#n8n-chat .chat-header {
+  background-color: #F4A698; /* tono café */
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Mensajes enviados por el usuario */
+#n8n-chat .chat-message.chat-message-from-user {
+  background-color: #EED6D3 !important; /* tono café */
+  color: #000 !important;               /* texto blanco */
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  max-width: 80%;
+  margin-left: auto; /* alinea a la derecha */
+}
+
+#n8n-chat .chat-input-send-button {
+  background-color: #F4A698; /* tono café */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+}

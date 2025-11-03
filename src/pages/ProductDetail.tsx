@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import PastelButton from "../components/Button";
@@ -8,6 +8,7 @@ import { trackEvent } from "../lib/analytics";
 import CommentSection from "../components/CommentSection";
 import { useCart } from '../hooks/useCart';
 import { useValidateStock } from '../hooks/useValidateStocks';
+import { getStockAndProcess } from "../hooks/useProducts";
 
 
 
@@ -18,6 +19,20 @@ export default function ProductDetail() {
     const [quantity, setQuantity] = useState(1);
     const { product, loading, error } = useProductBySlug(slug ?? "");
     const { addItem } = useCart();
+    const [stockData, setStockData] = useState<
+    { id: number; slug: string; name: string; stock: number; process: string }[]
+    >([]);
+
+    useEffect(() => {
+        const fetchStockData = async () => {
+        const data = await getStockAndProcess();
+        setStockData(data);
+        };
+
+        fetchStockData();
+    }, []);
+    const currentStockInfo = stockData.find(item => item.slug === slug);
+
 
 
     // Si no hay producto (por ejemplo, acceso directo a la URL), redirigir o mostrar error
@@ -111,6 +126,7 @@ export default function ProductDetail() {
     alert(`No se pudo agregar: ${err.message}`);
   }
     };
+
 
     const handleQuantityChange = (change: number) => {
         const newQuantity = quantity + change;
@@ -221,6 +237,17 @@ export default function ProductDetail() {
                                 </p>
                             </div>
 
+                            {currentStockInfo && (
+                                <>
+                                <h4 className="text-lg font-serif font-semibold text-gray-800 mt-4">
+                                    Proceso:
+                                </h4>
+                                <p className="text-gray-600 leading-relaxed">
+                                    {currentStockInfo.process}
+                                </p>
+                                </>
+                            )}
+
                             {/* Cantidad y botones */}
                             <div className="space-y-4">
                                 <div>
@@ -293,8 +320,11 @@ export default function ProductDetail() {
                                     </div>
                                     <div className="flex justify-between">
                                         <span>Disponibilidad:</span>
-                                        <span className={`font-semibold ${product.productIsActive ? 'text-green-600' : 'text-red-600'}`}>
-                                            {product.productIsActive ? 'En stock' : 'Agotado'}
+                                        <span className="font-semibold">
+                                            {currentStockInfo?.stock ?? 'No especificado'}
+                                        </span>
+                                        <span className={`font-semibold ${currentStockInfo?.stock ? 'text-green-600' : 'text-red-600'}`}>
+                                            {currentStockInfo?.stock ? 'En stock' : 'Agotado'}
                                         </span>
                                     </div>
                                 </div>
